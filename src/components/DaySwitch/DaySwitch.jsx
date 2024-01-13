@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
-import sprite from '../../assets/icons/svg-sprite.svg';
+import sprite from '../../../assets/sprite.svg';
 import {
   TitleWrapper,
   CalendarIMG,
