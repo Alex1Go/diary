@@ -1,82 +1,84 @@
-import { forwardRef, useEffect, useState } from 'react';
-import sprite from '../../../assets/sprite.svg';
-import {
-  TitleWrapper,
-  CalendarIMG,
-  DateSwitcherCont,
-  DateSwitcherBtnCont,
-} from './DaySwitch.styled';
-import { format } from 'date-fns';
-import { DateSwitchButton } from 'components/DateSwitchButton/DateSwitchButton';
-import { Calendar } from 'components/Calendar/Calendar';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export const DiaryCalendar = ({ createdAt, selectedDate, setSelectedDate }) => {
-  const [isDisabled, setIsDisabled] = useState(false);
+import {
+  Wrap,
+  CalenderBtn,
+  DateLabel,
+  BtnPrev,
+  BtnNext,
+  Svg,
+  CalenderIconWrap,
+} from './DaySwitch.styled';
+import sprite from '../../images/sprite.svg';
+import StyledDatepicker from 'components/StyledDatepicker/StyledDatepicker';
 
-  const clearTime = date => {
-    date.setHours(0, 0, 0, 0);
+const DaySwitch = ({ currentDate, setCurrentDate, formattedDate }) => {
+  const [isDatepickerOpen, setIsDatepickerOpen] = useState(false);
+
+  const switchToPreviousDay = () => {
+    const previousDay = new Date(currentDate);
+    previousDay.setDate(previousDay.getDate() - 1);
+    setCurrentDate(previousDay);
   };
 
-  useEffect(() => {
-    clearTime(createdAt);
-    clearTime(selectedDate);
-
-    if (selectedDate.getTime() === createdAt.getTime()) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [selectedDate, createdAt]);
-
-  const toPreviosDay = () => {
-    const previosDate = new Date(selectedDate);
-    previosDate.setDate(previosDate.getDate() - 1);
-
-    setSelectedDate(previosDate);
+  const switchToNextDay = () => {
+    const nextDay = new Date(currentDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+    setCurrentDate(nextDay);
   };
 
-  const toNextDay = () => {
-    const nextDate = new Date(selectedDate);
-    nextDate.setDate(nextDate.getDate() + 1);
-
-    setSelectedDate(nextDate);
+  const handleCalenderBtnClick = () => {
+    setIsDatepickerOpen(prev => !prev);
   };
-
-  const CustomInput = forwardRef(({ value, onClick }, ref) => {
-    return (
-      <DateSwitcherCont>
-        <TitleWrapper onClick={onClick} ref={ref} type="button">
-          {format(selectedDate, 'dd/MM/yyyy')}
-          <CalendarIMG>
-            <use href={sprite + '#icon-calendar'}></use>
-          </CalendarIMG>
-        </TitleWrapper>
-        <DateSwitcherBtnCont>
-          <DateSwitchButton
-            onClick={toPreviosDay}
-            disabled={isDisabled}
-            color={isDisabled ? '#EFEDE833' : '#efede8'}
-            icon="#icon-chevronup"
-          />
-          <DateSwitchButton onClick={toNextDay} icon="#icon-chevronup" />
-        </DateSwitcherBtnCont>
-      </DateSwitcherCont>
-    );
-  });
 
   return (
-    <Calendar
-      input={<CustomInput />}
-      selectedDate={selectedDate}
-      setSelectedDate={setSelectedDate}
-      createdAt={createdAt}
-    />
+    <Wrap>
+      <CalenderBtn onClick={handleCalenderBtnClick} id="calenderBtn">
+        <DateLabel>{formattedDate}</DateLabel>
+        <CalenderIconWrap>
+          <Svg>
+            <use href={`${sprite}#icon-calendar-orange`} />
+          </Svg>
+        </CalenderIconWrap>
+      </CalenderBtn>
+
+      <BtnPrev
+        className="button"
+        tabIndex={isDatepickerOpen ? -1 : 0}
+        onClick={switchToPreviousDay}
+      >
+        <Svg>
+          <use href={`${sprite}#icon-chevron-left`} />
+        </Svg>
+      </BtnPrev>
+
+      <BtnNext
+        className="button"
+        tabIndex={isDatepickerOpen ? -1 : 0}
+        onClick={switchToNextDay}
+      >
+        <Svg>
+          <use href={`${sprite}#icon-chevron-right`} />
+        </Svg>
+      </BtnNext>
+
+      {isDatepickerOpen && (
+        <StyledDatepicker
+          selectedDate={currentDate}
+          setSelectedDate={setCurrentDate}
+          isOpen={isDatepickerOpen}
+          setIsOpen={setIsDatepickerOpen}
+        />
+      )}
+    </Wrap>
   );
 };
 
-DiaryCalendar.propTypes = {
-  createdAt: PropTypes.instanceOf(Date).isRequired,
-  selectedDate: PropTypes.instanceOf(Date).isRequired,
-  setSelectedDate: PropTypes.func.isRequired,
+DaySwitch.propTypes = {
+  currentDate: PropTypes.instanceOf(Date),
+  setCurrentDate: PropTypes.func,
+  formattedDate: PropTypes.string,
 };
+
+export default DaySwitch;
