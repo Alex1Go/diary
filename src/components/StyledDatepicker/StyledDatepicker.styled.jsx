@@ -59,7 +59,7 @@ export const CalendarGlobalStyles = createGlobalStyle`
   }
   .react-datepicker__header {
     position: relative;
-    background-color: var(--orange-light-color);
+    background-color: #EF8964;
   }
  
   .react-datepicker__header:not(.react-datepicker__header--has-time-select) {
@@ -71,7 +71,7 @@ export const CalendarGlobalStyles = createGlobalStyle`
     border: none;
 }
   .react-datepicker__current-month {
-    color: var(--white-color);
+    color: white;
         font-family: 'RobotoMedium';
 font-size: 16px;
 font-style: normal;
@@ -124,7 +124,7 @@ letter-spacing: -0.28px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-   color: var(--white-color);
+   color: white;
         font-family: 'RobotoRegular';
 font-size: 14px;
 font-style: normal;
@@ -142,17 +142,17 @@ letter-spacing: -0.28px;
     margin: 0;
   }
   .react-datepicker__day--selected {
-    background-color: var(--black-color);
-    color:var(--white-color);
+    background-color: black;
+    color: white;
     font-size: 14px;
   }
   .react-datepicker__day--selected:hover {
     border-radius: 50%;
-  background-color:white;
+  background-color: white;
   }
   .react-datepicker__day:hover {
     border-radius: 50%;
-    background-color:white;
+    background-color: white;
     color:#3e85f3;
   }
   .react-datepicker__day--keyboard-selected {

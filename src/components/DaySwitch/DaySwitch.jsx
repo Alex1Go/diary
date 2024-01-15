@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Wrap,
   CalenderBtn,
@@ -38,7 +37,7 @@ const DaySwitch = ({ currentDate, setCurrentDate, formattedDate }) => {
         <DateLabel>{formattedDate}</DateLabel>
         <CalenderIconWrap>
           <Svg>
-            <use href={`${sprite}#icon-calendar-orange`} />
+            <use href={`${sprite}#icon-tabler_exclamation-mark`} />
           </Svg>
         </CalenderIconWrap>
       </CalenderBtn>

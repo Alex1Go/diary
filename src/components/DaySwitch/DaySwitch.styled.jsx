@@ -28,10 +28,10 @@ const DateLabel = styled.p`
   line-height: 1.33;
   margin: 0;
   padding: 0;
-  color: var(--white-color);
+  color: white;
 
   &:hover {
-    color: var(--orange-light-color);
+    color: '#EF8964';
   }
 
   @media screen and (max-width: 767px) {
@@ -69,7 +69,7 @@ const BtnPrev = styled.button`
   margin: 0 6px 0 0;
   padding: 0;
   background-color: transparent;
-  color: var(--white-color);
+  color: #efede8;
   width: 16px;
   height: 16px;
 `;
@@ -77,7 +77,7 @@ const BtnPrev = styled.button`
 const Svg = styled.svg`
   width: 100%;
   height: 100%;
-  fill: var(--orange-color);
+  fill: white;
 `;
 
 export {
